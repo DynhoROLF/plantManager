@@ -4,8 +4,9 @@ import {
     Text,
     View,
     Image,
-    AsyncStorage,
 } from 'react-native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 

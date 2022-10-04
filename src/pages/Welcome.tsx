@@ -8,7 +8,7 @@ import {
     SafeAreaView,
     TouchableOpacity, 
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/core';
 import { Feather } from '@expo/vector-icons'
 
 import wateringImg from '../assets/watering.png';

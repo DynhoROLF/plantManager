@@ -175,5 +175,4 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 20,
     }
-
 })

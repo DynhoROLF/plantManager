@@ -1,12 +1,12 @@
+import { useNavigation } from '@react-navigation/core';
 import React, { useEffect, useState } from 'react';
 import { 
-    View,
-    Text,
-    StyleSheet,
-    FlatList,
-    ActivityIndicator,
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 import { Load } from '../components/Load';
 import { Header } from '../components/Header';
@@ -19,8 +19,8 @@ import fonts from '../styles/fonts';
 import api from '../services/api';
 
 interface EnvironmentProps {
-    key: string;
-    title: string;
+  key: string;
+  title: string;
 }
 
 
@@ -38,7 +38,6 @@ export function PlantSelect(){
 
     const navigation = useNavigation();
 
-
     function handleEnvironmentSelected(environments: string){
         setEnvironmentSelected(environments);
 
@@ -53,8 +52,8 @@ export function PlantSelect(){
     }
 
     async function fetchPlants(){
-        const { data } = 
-        await api.get(`plants?_sort=name&_oder=asc&_page=${page}&_limit=8`)
+        const { data } = await api
+        .get(`plants?_sort=name&_oder=asc&_page=${page}&_limit=8`)
 
         if(!data)
             return setLoading(true);
@@ -87,9 +86,8 @@ export function PlantSelect(){
 
     useEffect(() => {
         async function fetchEnvironment() {
-            const { data } = 
-            await api.
-            get(`plants_environments?_sort=title$_order=asc`)
+            const { data } = await api
+            .get(`plants_environments?_sort=title$_order=asc`)
             setEnvironments([
                 {
                     key: 'all',
@@ -106,75 +104,80 @@ export function PlantSelect(){
     },[])
 
 
-    if(loading)
-        return <Load />
+    // if(loading)
+    //     return <Load />
     return (
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Header />
-                    <Text style={styles.title}>Em qual ambiente</Text>
-                    <Text style={styles.subtitle}>você quer colocar sua planta</Text>
-                </View>
-
-                <View>
-                    <FlatList 
-                        data={environments}
-                        keyExtractor={(item) => String(item.key)}
-                        renderItem={({ item }) => (
-                            <EnvironmentButton 
-                                title={item.title}
-                                active={item.key === environmentSelected}
-                                onPress={() => handleEnvironmentSelected(item.key)}
-                            />
-                        )}
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={styles.environmentList}
-                    />
-                </View>
-
-                <View style={styles.plants}>
-                    <FlatList 
-                        data={filteredPlants}
-                        keyExtractor={(item) => String(item.id)}
-                        renderItem={({ item }) => (
-                            <PlantCardPrimary 
-                                data={item}
-                                onPress={() => handlePlantSelect(item)}
-                            />
-                        )}
-                        showsVerticalScrollIndicator={false}
-                        numColumns={2}
-                        onEndReachedThreshold={0.1}
-                        onEndReached={({ distanceFromEnd }) => 
-                            handleFetchMore(distanceFromEnd)
-                        }
-                        ListFooterComponent={
-                            loadingMore ?
-                            <ActivityIndicator color={colors.green} />
-                            : <></>
-                        }   
-                    />
-                </View>
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Header />
+                <Text style={styles.title}>
+                    Em qual ambiente
+                </Text>
+                <Text style={styles.subtitle}>
+                    você quer colocar sua planta
+                </Text>
             </View>
+
+            <View>
+                <FlatList 
+                    data={environments}
+                    keyExtractor={(item) => String(item.key)}
+                    renderItem={({ item }) => (
+                        <EnvironmentButton 
+                            title={item.title}
+                            active={item.key === environmentSelected}
+                            onPress={() => handleEnvironmentSelected(item.key)}
+                        />
+                    )}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.environmentList}
+                />
+            </View>
+
+            <View style={styles.plants}>
+                <FlatList 
+                    data={filteredPlants}
+                    keyExtractor={(item) => String(item.id)}
+                    renderItem={({ item }) => (
+                        <PlantCardPrimary 
+                            data={item}
+                            onPress={() => handlePlantSelect(item)}
+                        />
+                    )}
+                    showsVerticalScrollIndicator={false}
+                    numColumns={2}
+                    onEndReachedThreshold={0.1}
+                    onEndReached={({ distanceFromEnd }) => 
+                        handleFetchMore(distanceFromEnd)
+                    }
+                    ListFooterComponent={
+                        loadingMore 
+                        ? <ActivityIndicator color={colors.green} />
+                        : <></>
+                    }   
+                />
+            </View>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop: 20,
         backgroundColor: colors.background,
     },
 
     header: {
-        paddingHorizontal: 24,
+        paddingHorizontal: 30,
     },
 
     title: {
         fontSize: 17,
         fontFamily: fonts.heading,
         color: colors.heading,
-        lineHeight: 25,
+        lineHeight: 20,
         marginTop: 15,
 
     },
@@ -190,6 +193,7 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: 'center',
         paddingBottom: 5,
+        paddingRight: 32,
         marginLeft: 17,
         marginVertical: 32,
     },
@@ -199,8 +203,4 @@ const styles = StyleSheet.create({
         paddingHorizontal: 32,
         justifyContent: 'center',
     },
-
-    contentContainerStyle: {
-        
-    }
-})
+});

@@ -3,19 +3,20 @@ import { format } from 'date-fns';
 
 export interface PlantProps {
     id: string;
-        name: string;
-        about: string;
-        water_tips: string;
-        photo: string;
-        environments: [string];
-        frequency: {
-            times: number;
-            repeat_every: string;
-        },
-        dateTimeNotification: Date;
+    name: string;
+    about: string;
+    water_tips: string;
+    photo: string;
+    environments: [string];
+    frequency: {
+        times: number;
+        repeat_every: string;
+    },
+    hour: string;
+    dateTimeNotification: Date;
 }
 
-interface StoragePlantProps {
+export interface StoragePlantProps {
     [id: string]: {
         data: PlantProps;
     }
@@ -42,7 +43,6 @@ export async function savePlant(plant: PlantProps) : Promise<void> {
         throw new Error(error);
     }
 
-
 }
 
 
@@ -55,7 +55,7 @@ export async function loadPlant() : Promise<PlantProps[]> {
         .keys(plants)
         .map((plant) => {
             return {
-                ...plant[plant].data,
+                ...plants[plant].data,
                 hour: format(new Date(plants[plant].data.dateTimeNotification), 'HH:mm')
             }
         })
@@ -70,4 +70,16 @@ export async function loadPlant() : Promise<PlantProps[]> {
     } catch (error) {
         throw new Error(error);
     }
+}
+
+export async function removePlant(id: string): Promise<void> {
+    const data = await AsyncStorage.getItem('@plantmanager:plants');
+    const plants = data ? (JSON.parse(data) as StoragePlantProps) : {};
+
+    delete plants[id]
+
+    await AsyncStorage.setItem(
+        '@plantmanager:plants',
+        JSON.stringify(plants)
+    );
 }

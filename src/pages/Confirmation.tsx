@@ -6,7 +6,7 @@ import {
     View,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/core';
 
 import { Button } from '../components/Button';
 import colors from '../styles/colors'
@@ -35,12 +35,11 @@ export function Confirmation(){
         buttonTitle,
         icon,
         nextScreen
-    } = routes.params as Params
+    } = routes.params as Params;
     
     function handleConfirmation(){
         navigation.navigate(nextScreen)
     }
-
 
     return (
         <SafeAreaView style={styles.container}>
@@ -57,7 +56,7 @@ export function Confirmation(){
 
                 <View style={styles.footer}>
                     <Button 
-                        title="Começar"
+                        title={buttonTitle}
                         onPress={handleConfirmation}
                     />
                 </View>
