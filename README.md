@@ -27,9 +27,8 @@ This project was developed with the following technologies:
 
 - [Expo](https://expo.dev/) 
 - [React](https://reactjs.org)
+- [React-Native](https://reactnative.dev)
 - [TypeScript](https://www.typescriptlang.org/)
-
-From your command line:
 
 # install dependecies 
 $ expo install 
@@ -45,5 +44,4 @@ Made by Waldyr Filho :wave: [Get in touch!](https://www.linkedin.com/in/waldyr-r
 [npm]:https://docs.npmjs.com/
 [vc]: https://code.visualstudio.com/
 [vceditconfig]: https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig
-[vceslint]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
 [prettier]: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
